@@ -74,6 +74,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.sudamod.sdk.phonelocation.PhoneUtil;
+import android.suda.utils.SudaUtils;
+
 // TODO: Needed for move to system service: import com.android.internal.R;
 
 /**
@@ -414,6 +417,11 @@ public class MissedCallNotifierImpl extends CallsManagerListenerBase implements 
         String handle = callInfo.getHandleSchemeSpecificPart();
         String name = callInfo.getName();
 
+        CharSequence location = "";
+        if (SudaUtils.isSupportLanguage(true)) {
+            location = PhoneUtil.getPhoneUtil(mContext).getLocalNumberInfo(callInfo.getPhoneNumber());
+        }
+
         if (!TextUtils.isEmpty(handle)) {
             String formattedNumber = PhoneNumberUtils.formatNumber(handle,
                     getCurrentCountryIso(mContext));
@@ -427,13 +435,13 @@ public class MissedCallNotifierImpl extends CallsManagerListenerBase implements 
         }
 
         if (!TextUtils.isEmpty(name) && TextUtils.isGraphic(name)) {
-            return name;
+            return !TextUtils.isEmpty(location) ? name + " " + location : name;
         } else if (!TextUtils.isEmpty(handle)) {
             // A handle should always be displayed LTR using {@link BidiFormatter} regardless of the
             // content of the rest of the notification.
             // TODO: Does this apply to SIP addresses?
             BidiFormatter bidiFormatter = BidiFormatter.getInstance();
-            return bidiFormatter.unicodeWrap(handle, TextDirectionHeuristics.LTR);
+            return !TextUtils.isEmpty(location) ? bidiFormatter.unicodeWrap(handle, TextDirectionHeuristics.LTR) + " " + location : bidiFormatter.unicodeWrap(handle, TextDirectionHeuristics.LTR);
         } else {
             // Use "unknown" if the call is unidentifiable.
             return mContext.getString(R.string.unknown);
