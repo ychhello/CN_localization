@@ -62,6 +62,10 @@ PRODUCT_COPY_FILES += \
     vendor/syberia/prebuilt/common/bin/backuptool_postinstall.sh:system/bin/backuptool_postinstall.sh
 endif
 
+# Phonelocation!
+PRODUCT_COPY_FILES +=  \
+    vendor/syberia/prebuilt/common/media/location/suda-phonelocation.dat:system/media/location/suda-phonelocation.dat
+
 # Backup Tool
 PRODUCT_COPY_FILES += \
     vendor/syberia/build/tools/50-syberia.sh:system/addon.d/50-syberia.sh \

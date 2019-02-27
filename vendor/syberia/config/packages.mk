@@ -129,3 +129,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Lawnchair \
     LawnConf
+
+#localization zh-CN
+PRODUCT_PACKAGES += \
+    PhoneLocationProvider
