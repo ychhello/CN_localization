@@ -24,9 +24,12 @@ LOCAL_STATIC_ANDROID_LIBRARIES := \
     android-support-v4
 
 LOCAL_STATIC_JAVA_LIBRARIES := \
+    libSudaSdk \
+    libSudaPinYin \
     android-common \
     com.android.vcard \
     guava \
+    voip-common \
     libphonenumber
 
 LOCAL_USE_AAPT2 := true
@@ -41,7 +44,8 @@ LOCAL_PRIVILEGED_MODULE := true
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
-LOCAL_SDK_VERSION := current
+#LOCAL_SDK_VERSION := current
+LOCAL_PRIVATE_PLATFORM_APIS := true
 LOCAL_MIN_SDK_VERSION := 21
 
 include $(BUILD_PACKAGE)
