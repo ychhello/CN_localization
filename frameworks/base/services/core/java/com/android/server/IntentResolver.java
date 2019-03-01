@@ -727,7 +727,7 @@ public abstract class IntentResolver<F extends IntentFilter, R extends Object> {
         final Uri data = intent.getData();
         final String packageName = intent.getPackage();
 
-        final boolean excludingStopped = com.android.server.am.PreventRunningUtils..isExcludingStopped(intent);
+        final boolean excludingStopped = com.android.server.am.PreventRunningUtils.isExcludingStopped(intent);
 
         final Printer logPrinter;
         final PrintWriter logPrintWriter;
